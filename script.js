@@ -16,7 +16,7 @@ let canvas = document.getElementById('canvas'),
   previousColor = "#000000";
 
 
-  
+
 
 canvas.width = '512';
 
@@ -28,19 +28,47 @@ canvas.addEventListener('mousedown', function (e) {
 canvas.addEventListener('mouseup', function () {
   MouseDown = false;
 });
-
-
-
-function initcanvas() {
+if (localStorage.saveCanvas == undefined){
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
-      ctx.fillStyle = colorsArray[i][j];
-      ctx.fillRect(128 * i, 128 * j, 128, 128);
+      canvas.getContext('2d').fillStyle = colorsArray[i][j];
+            canvas.getContext('2d').fillRect(128 * i, 128 * j, 128, 128);
     }
   };
 }
 
+
+// console.log( localStorage.saveCanvas.split(','))
+
+function initcanvas() {
+ if(localStorage.saveCanvas!=undefined){
+  colorsArray=[];
+  let t = [], counter = 0;
+    for(let i = 0; i < 4; i++){
+        for(let j = 0; j < 4; j++){
+            t.push(localStorage.getItem("saveCanvas").toUpperCase().split(",")[counter]);
+            counter++;
+        }
+        colorsArray.push(t);
+        t = [];
+    }
+ }
+}
+
 initcanvas();
+
+
+function show(){
+  for(let i = 0; i < 4; i++){
+    for(let j = 0; j < 4; j++){
+      
+            canvas.getContext('2d').fillStyle = colorsArray[i][j];
+            canvas.getContext('2d').fillRect(128 * i, 128 * j, 128, 128);
+    }
+}
+}
+
+show();
 
 canvas.addEventListener('mousedown', function (e) {
   if (pensile) {
@@ -125,18 +153,18 @@ function selectColors() {
   changeColors();
 }
 
-function chooseCommonColor(event){
+function chooseCommonColor(event) {
   let tar = event.target;
-  if(tar == document.querySelector('.oran_prev') || tar == document.querySelector('.previous_elip') || tar == document.querySelector('.pr')){
+  if (tar == document.querySelector('.oran_prev') || tar == document.querySelector('.previous_elip') || tar == document.querySelector('.pr')) {
     let temp = previousColor;
     previousColor = currentColor;
     currentColor = temp;
     changeColors();
-  }else   if(tar == document.querySelector('.oran_r') || tar == document.querySelector('.red_elip') || tar == document.querySelector('.r')){
+  } else if (tar == document.querySelector('.oran_r') || tar == document.querySelector('.red_elip') || tar == document.querySelector('.r')) {
     previousColor = currentColor;
     currentColor = "#FF0000";
     changeColors();
-  }else   if(tar == document.querySelector('.oran_b') || tar == document.querySelector('.blue_elip') || tar == document.querySelector('.p')){
+  } else if (tar == document.querySelector('.oran_b') || tar == document.querySelector('.blue_elip') || tar == document.querySelector('.p')) {
     previousColor = currentColor;
     currentColor = "#0000FF";
     changeColors();
@@ -144,19 +172,32 @@ function chooseCommonColor(event){
 }
 
 
-function fillCanvas(){
+function fillCanvas() {
   console.log('fill');
-  if (c_fill){
-    ctx.fillStyle=currentColor;
-    ctx.fillRect(0,0,512,512);
+  if (c_fill) {
+    ctx.fillStyle = currentColor;
+    ctx.fillRect(0, 0, 512, 512);
   }
 }
 
-
+function saveCanvas() {
+  let arr = [];
+  let r, g, b;
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      r = canvas.getContext('2d').getImageData(128 * i + 1, 128 * j + 1, 1, 1).data[0];
+      g = canvas.getContext('2d').getImageData(128 * i + 1, 128 * j + 1, 1, 1).data[1];
+      b = canvas.getContext('2d').getImageData(128 * i + 1, 128 * j + 1, 1, 1).data[2];
+      arr.push(rgbString(r, g, b));
+    }
+  }
+  localStorage.setItem("saveCanvas", arr);
+}
 
 document.querySelector('.pens').closest('.tool').classList.add('choose')
 block_tool.addEventListener('mousedown', choose_tool);
 document.querySelector('input').addEventListener('mousedown', selectColors);
 document.getElementById('canvas').addEventListener('mousedown', colorPicker);
 document.querySelector('.colors').addEventListener('mousedown', chooseCommonColor);
-document.getElementById('canvas').addEventListener('mousedown', fillCanvas)
+document.getElementById('canvas').addEventListener('mousedown', fillCanvas);
+document.getElementById('canvas').addEventListener('mouseup', saveCanvas)
