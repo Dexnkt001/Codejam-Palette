@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+}
+
+header{
+    box-shadow: 0px 5px 10px rgb(31, 29, 29);
+}
+
+body{
+    position: relative;
+}
+
+.header_all{
+width:100%;
+padding-top: 10px;
+padding-bottom: 5px;
+line-height: 30px;
+}
+
+.dots{
+display: inline;
+float: right;
+padding-right: 10px;
+}
+
+.jame{
+    display: inline;
+    padding-left: 30px;
+}
+
+.jame .code{
+font-size: 20px;
+}
+
+.header_menu{
+    display: inline;
+    padding-left: 5px;
+}
+
+.main {
+    position: relative;
+}
+
+.tools{
+    font-family:'Times New Roman', Times, serif ;
+    box-shadow: 0px 0px 20px rgb(31, 29, 29);
+    width: 200px;
+    margin-top:50px;
+    margin-left: 20px;
+    padding-top:5px;
+    padding-bottom: 40px;
+}
+
+.tool{
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.tools span{
+    padding-left:20px;
+}
+
+.tools .opas{
+    opacity: 0.5;
+    padding-left:10px;
+}
+
+.pict{
+    padding-left:10px;
+}
+
+.colors{
+    font-family:'Times New Roman', Times, serif ;
+    box-shadow: 0px 0px 20px rgb(31, 29, 29);
+    width: 200px;
+    margin-top:50px;
+    margin-left: 20px;
+    padding-top:5px;
+    padding-bottom: 40px;
+}
+
+.oran_elip{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left:10px;
+
+
+    display:inline-block;
+    background: #FFC107;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.yell_elip{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left:10px;
+
+
+    display:inline-block;
+    background: yellow;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.red_elip{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left:10px;
+
+    display:inline-block;
+    background: red;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.blue_elip{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left:10px;
+
+    display:inline-block;
+    background: blue;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.colors span{
+    position: absolute;
+    left:60px; 
+}
+
+.oran{
+    line-height: 40px;
+}
+
+#canvas{
+    position: absolute;
+    top:20%;
+    left:35%;
+    display: block;
+    box-shadow:0px 0px 20px rgb(31, 29, 29);
+}
+
+.choose{
+    background-color: silver;
+}
