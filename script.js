@@ -2,7 +2,7 @@ let canvas = document.getElementById('canvas'),
   ctx = canvas.getContext('2d'),
   MouseDown = false,
   block_tool = document.querySelector('.tools'),
-  pensile = false,
+  pensile = true,
   c_color = false,
   c_fill = false,
   trans = false,
@@ -12,9 +12,8 @@ let canvas = document.getElementById('canvas'),
     ["#FFEB3B", "#FFC107", "#FFC107", "#FFEB3B"],
     ["#00BCD4", "#FFEB3B", "#FFEB3B", "#00BCD4"]
   ],
-  curentcolor = '#FFFFFF',
-  previoscolor = '#FFFFFF'
-
+  currentColor = "#FFFFFF",
+  previousColor = "#000000";
 
 
 canvas.width = '512';
@@ -29,6 +28,7 @@ canvas.addEventListener('mouseup', function () {
 });
 
 
+
 function initcanvas() {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
@@ -40,12 +40,19 @@ function initcanvas() {
 
 initcanvas();
 
-canvas.addEventListener('mousemove', function (e) {
-  if (MouseDown && pensile) {
-    ctx.fillStyle = currentcolor;
-    ctx.fillRect(128 * (e.offsetX/128), 128(e.offsetY/128), 128, 128);
+canvas.addEventListener('mousedown', function (e) {
+  if (pensile) {
+    canvas.getContext('2d').fillRect(128 * Math.floor(e.offsetX / 128), 128 * Math.floor(e.offsetY / 128), 128, 128);
   }
 });
+
+canvas.addEventListener('mousemove', function (e) {
+  if (MouseDown && pensile) {
+    canvas.getContext('2d').fillStyle = currentColor;
+    canvas.getContext('2d').fillRect(128 * Math.floor(e.offsetX / 128), 128 * Math.floor(e.offsetY / 128), 128, 128);
+  }
+});
+
 
 const choose_tool = (event) => {
   var tar = event.target;
@@ -100,6 +107,46 @@ function updateAll(event) {
   });
 }
 
+function colorPicker(e) {
 
+  if (c_color === true) {
 
+    let r = canvas.getContext('2d').getImageData(e.offsetX, e.offsetY, 1, 1).data[0];
+    let g = canvas.getContext('2d').getImageData(e.offsetX, e.offsetY, 1, 1).data[1];
+    let b = canvas.getContext('2d').getImageData(e.offsetX, e.offsetY, 1, 1).data[2];
+      console.log(r,g,b)
+    previousColor = currentColor;
+    currentColor = rgbString(r, g, b);
+    changeColors();    
+  }
+
+}
+
+function rgbString(r, g, b) {
+  r = r.toString(16);
+  g = g.toString(16);
+  b = b.toString(16);
+
+  if (r.length == 1) r = "0" + r;
+  if (g.length == 1) g = "0" + g;
+  if (b.length == 1) b = "0" + b;
+
+  return '#' + r + g + b;
+}
+
+function changeColors() {
+  document.querySelector('.current_elip').style.background = currentColor;
+  document.querySelector('.previous_elip').style.background = previousColor;
+}
+
+function selectColors(){
+  console.log('choooooooose color');
+  previousColor = currentColor;
+  currentColor = document.querySelector(".color").value;
+  changeColors();
+}
+
+document.querySelector('.pens').closest('.tool').classList.add('choose')
 block_tool.addEventListener('click', choose_tool);
+document.querySelector('input').addEventListener('mousedown',selectColors);
+document.getElementById('canvas').addEventListener('mousedown', colorPicker)

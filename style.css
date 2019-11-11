@@ -79,7 +79,7 @@ font-size: 20px;
     padding-bottom: 40px;
 }
 
-.oran_elip{
+.current_elip{
     width: 20px;
     height: 20px;
     position: relative;
@@ -87,13 +87,13 @@ font-size: 20px;
 
 
     display:inline-block;
-    background: #FFC107;
+    background: #FFFFFF;
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 10px;
 }
 
-.yell_elip{
+.previous_elip{
     width: 20px;
     height: 20px;
     position: relative;
@@ -101,7 +101,7 @@ font-size: 20px;
 
 
     display:inline-block;
-    background: yellow;
+    background: #000000;
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 10px;
@@ -141,6 +141,7 @@ font-size: 20px;
 .oran{
     line-height: 40px;
 }
+
 
 #canvas{
     position: absolute;
