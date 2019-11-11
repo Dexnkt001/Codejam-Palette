@@ -16,6 +16,8 @@ let canvas = document.getElementById('canvas'),
   previousColor = "#000000";
 
 
+  
+
 canvas.width = '512';
 
 canvas.height = '512';
@@ -123,8 +125,38 @@ function selectColors() {
   changeColors();
 }
 
+function chooseCommonColor(event){
+  let tar = event.target;
+  if(tar == document.querySelector('.oran_prev') || tar == document.querySelector('.previous_elip') || tar == document.querySelector('.pr')){
+    let temp = previousColor;
+    previousColor = currentColor;
+    currentColor = temp;
+    changeColors();
+  }else   if(tar == document.querySelector('.oran_r') || tar == document.querySelector('.red_elip') || tar == document.querySelector('.r')){
+    previousColor = currentColor;
+    currentColor = "#FF0000";
+    changeColors();
+  }else   if(tar == document.querySelector('.oran_b') || tar == document.querySelector('.blue_elip') || tar == document.querySelector('.p')){
+    previousColor = currentColor;
+    currentColor = "#0000FF";
+    changeColors();
+  }
+}
+
+
+function fillCanvas(){
+  console.log('fill');
+  if (c_fill){
+    ctx.fillStyle=currentColor;
+    ctx.fillRect(0,0,512,512);
+  }
+}
+
+
 
 document.querySelector('.pens').closest('.tool').classList.add('choose')
 block_tool.addEventListener('mousedown', choose_tool);
 document.querySelector('input').addEventListener('mousedown', selectColors);
 document.getElementById('canvas').addEventListener('mousedown', colorPicker);
+document.querySelector('.colors').addEventListener('mousedown', chooseCommonColor);
+document.getElementById('canvas').addEventListener('mousedown', fillCanvas)

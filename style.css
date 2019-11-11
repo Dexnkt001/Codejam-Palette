@@ -62,6 +62,7 @@ font-size: 20px;
 
 .tool:hover{
     border:1px solid rgb(31, 29, 29);
+    background-color: rgba(114, 106, 106, 0.1);
 }
 
 .tools .opas{
@@ -145,8 +146,32 @@ font-size: 20px;
     left:60px; 
 }
 
-.oran{
+.oran,
+.oran_prev,
+.oran_r,
+.oran_b{
     line-height: 40px;
+    cursor: pointer;
+}
+
+.oran:hover{
+    border:1px solid rgb(31, 29, 29);
+    background-color: rgba(114, 106, 106, 0.1);
+}
+
+.oran_prev:hover{
+    border:1px solid rgb(31, 29, 29);
+    background-color: rgba(114, 106, 106, 0.1);
+}
+
+.oran_r:hover{
+    border:1px solid rgb(31, 29, 29);
+    background-color: rgba(114, 106, 106, 0.1);
+}
+
+.oran_b:hover{
+    border:1px solid rgb(31, 29, 29);
+    background-color: rgba(114, 106, 106, 0.1);
 }
 
 
