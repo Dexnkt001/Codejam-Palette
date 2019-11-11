@@ -60,12 +60,19 @@ font-size: 20px;
     padding-left:20px;
 }
 
+.tool:hover{
+    border:1px solid rgb(31, 29, 29);
+}
+
 .tools .opas{
     opacity: 0.5;
     padding-left:10px;
 }
 
-.pict{
+
+.pict_f,
+.pict_p,
+.pict_c{
     padding-left:10px;
 }
 

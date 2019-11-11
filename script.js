@@ -43,6 +43,7 @@ initcanvas();
 canvas.addEventListener('mousedown', function (e) {
   if (pensile) {
     canvas.getContext('2d').fillRect(128 * Math.floor(e.offsetX / 128), 128 * Math.floor(e.offsetY / 128), 128, 128);
+    console.log('mosedown')
   }
 });
 
@@ -50,28 +51,31 @@ canvas.addEventListener('mousemove', function (e) {
   if (MouseDown && pensile) {
     canvas.getContext('2d').fillStyle = currentColor;
     canvas.getContext('2d').fillRect(128 * Math.floor(e.offsetX / 128), 128 * Math.floor(e.offsetY / 128), 128, 128);
+    console.log('mousemove')
   }
 });
 
 
 const choose_tool = (event) => {
   var tar = event.target;
-  if (tar == document.querySelectorAll('.tool')[0]) {
+  console.log(tar);
+  if (tar == document.querySelectorAll('.tool')[0] || tar == document.querySelector('.pict_f') || tar == document.querySelector('.f')) {
     c_fill = true;
     pensile = false;
     c_color = false;
     trans = false;
-  } else if (tar == document.querySelectorAll('.tool')[1]) {
-    c_fill = false;
-    pensile = false;
-    c_color = true;
-    trans = false;
-  } else if (tar == document.querySelectorAll('.tool')[2]) {
+  } else if (tar == document.querySelectorAll('.tool')[2] || tar == document.querySelector('.pict_p') || tar == document.querySelector('.pens')) {
     c_fill = false;
     pensile = true;
     c_color = false;
     trans = false;
-  } else if (tar == document.querySelectorAll('.tool')[3]) {
+  } else if (tar == document.querySelectorAll('.tool')[1] || tar == document.querySelector('.pict_c') || tar == document.querySelector('.c')) {
+    c_fill = false;
+    pensile = false;
+    c_color = true;
+    trans = false;
+  }
+  else if (tar == document.querySelectorAll('.tool')[3] || tar == document.querySelector('.opas') || tar == document.querySelector('.opas')) {
     c_fill = false;
     pensile = false;
     c_color = false;
@@ -79,32 +83,7 @@ const choose_tool = (event) => {
   }
   document.querySelectorAll('.tool').forEach((element) => element.classList.remove('choose'))
   tar.closest('.tool').classList.add('choose')
-  console.log(tar);
-}
-
-var colorWell;
-var defaultColor = "#FF0000";
-
-window.addEventListener("load", startup, false)
-function startup() {
-  colorWell = document.querySelector("#select_color");
-  colorWell.value = defaultColor;
-  colorWell.addEventListener("input", updateFirst, false);
-  colorWell.addEventListener("change", updateAll, false);
-  colorWell.select();
-}
-function updateFirst(event) {
-  var p = document.querySelector("p");
-
-  if (p) {
-    p.style.color = event.target.value;
-  }
-}
-
-function updateAll(event) {
-  document.querySelectorAll("p").forEach(function (p) {
-    p.style.color = event.target.value;
-  });
+  console.log(c_fill, pensile, c_color, trans)
 }
 
 function colorPicker(e) {
@@ -114,10 +93,9 @@ function colorPicker(e) {
     let r = canvas.getContext('2d').getImageData(e.offsetX, e.offsetY, 1, 1).data[0];
     let g = canvas.getContext('2d').getImageData(e.offsetX, e.offsetY, 1, 1).data[1];
     let b = canvas.getContext('2d').getImageData(e.offsetX, e.offsetY, 1, 1).data[2];
-      console.log(r,g,b)
     previousColor = currentColor;
     currentColor = rgbString(r, g, b);
-    changeColors();    
+    changeColors();
   }
 
 }
@@ -139,14 +117,14 @@ function changeColors() {
   document.querySelector('.previous_elip').style.background = previousColor;
 }
 
-function selectColors(){
-  console.log('choooooooose color');
+function selectColors() {
   previousColor = currentColor;
-  currentColor = document.querySelector(".color").value;
+  currentColor = document.getElementById("select_color").value;
   changeColors();
 }
 
+
 document.querySelector('.pens').closest('.tool').classList.add('choose')
-block_tool.addEventListener('click', choose_tool);
-document.querySelector('input').addEventListener('mousedown',selectColors);
-document.getElementById('canvas').addEventListener('mousedown', colorPicker)
+block_tool.addEventListener('mousedown', choose_tool);
+document.querySelector('input').addEventListener('mousedown', selectColors);
+document.getElementById('canvas').addEventListener('mousedown', colorPicker);
